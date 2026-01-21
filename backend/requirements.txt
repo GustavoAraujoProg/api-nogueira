@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+python-dotenv
+anthropic
+cors
+pdfplumber
+python-docx
+google-generativeai
+PyPDF2
+groq
+requests
+openai
