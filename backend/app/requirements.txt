@@ -12,3 +12,4 @@ PyPDF2
 groq
 requests
 openai
+gunicorn

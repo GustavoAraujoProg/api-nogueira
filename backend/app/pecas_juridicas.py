@@ -127,12 +127,42 @@ PROMPTS_POR_PECA = {
     # 6. RECURSOS CÍVEIS
     # =========================================================================
     "Apelação": {
-        "contexto": "Advogado em fase recursal (Apelação).",
-        "instrucao_fatos": "Breve resumo da sentença.",
-        "instrucao_direito": "Demonstre o erro da sentença (error in judicando/procedendo).",
-        "estrutura_pedidos": ["Conhecimento e provimento do recurso;", "Reforma da sentença."]
+        "contexto": """
+            Você é um Desembargador aposentado e advogado sênior, especialista em reverter decisões judiciais no Tribunal de Justiça.
+            Sua missão é redigir uma APELAÇÃO CÍVEL.
+            
+            IMPORTANTE - SEU CLIENTE:
+            Verifique no contexto quem o usuário representa (Apelante).
+            - Se for o AUTOR da ação original: Geralmente quer aumentar a condenação ou reverter a improcedência.
+            - Se for o RÉU da ação original: Quer anular a sentença ou diminuir a condenação.
+        """,
+        "instrucao_fatos": """
+            A "Síntese dos Fatos" na Apelação deve ser técnica:
+            1. Resuma brevemente a Petição Inicial (baseado no que o usuário informar).
+            2. Foque principalmente no RESUMO DA SENTENÇA (o que o juiz decidiu).
+            3. Destaque os pontos onde a sentença FALHOU ou foi injusta com o Apelante.
+            4. Use termos como "Em que pese o notável saber jurídico do Douto Magistrado a quo, a r. sentença merece reforma...".
+        """,
+        "instrucao_direito": """
+            Escreva as RAZÕES RECURSAIS (Do Direito):
+            
+            1. PRELIMINARES (Se o usuário citou alguma):
+               - Analise se há Cerceamento de Defesa, Nulidade, Incompetência, etc.
+               - Fundamente com Artigos do CPC e Constituição Federal (Art. 5º, LV).
+
+            2. DO MÉRITO (Error in Judicando/Procedendo):
+               - Ataque os fundamentos da sentença ponto a ponto.
+               - Demonstre por que a prova dos autos diz o contrário do que o juiz decidiu.
+               - Cite Jurisprudência do Tribunal de Justiça e STJ que favoreça o Apelante.
+               - O tom deve ser de inconformismo, mas extremamente respeitoso.
+        """,
+        "estrutura_pedidos": [
+            "O conhecimento e provimento do presente recurso;",
+            "A reforma total (ou anulação) da r. sentença recorrida;",
+            "A inversão do ônus de sucumbência;",
+            "O prequestionamento da matéria para fins de recursos superiores."
+        ]
     },
-    
     "Agravo de Instrumento": {
         "contexto": "Advogado recorrendo de decisão interlocutória.",
         "instrucao_fatos": "Resuma a decisão agravada que causou prejuízo.",
