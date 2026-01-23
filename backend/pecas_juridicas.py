@@ -1,7 +1,90 @@
-# =========================================================================
-# ARQUIVO: backend/app/pecas_juridicas.py
-# VERSÃO: DEFINITIVA (Cobre todas as áreas do App.js)
-# =========================================================================
+
+CONTEXTOS_AREA = {
+    "civil": """
+        ATUAÇÃO: Advogado Civilista Sênior.
+        BASE LEGAL: Código Civil (CC/2002), Código de Processo Civil (CPC/2015), Lei do Consumidor (CDC) se aplicável.
+        TOM DE VOZ: Formal, técnico, focado em reparação de danos, cumprimento de contratos e responsabilidade civil.
+        FOCO: Demonstrar o prejuízo patrimonial ou moral e o nexo de causalidade.
+        JURISPRUDÊNCIA: Cite preferencialmente STJ e Tribunais Estaduais.
+    """,
+    "trabalhista": """
+        ATUAÇÃO: Advogado Trabalhista Especialista.
+        BASE LEGAL: Consolidação das Leis do Trabalho (CLT), Súmulas do TST e Constituição Federal (Art. 7º).
+        TOM DE VOZ: Protetivo (se Autor/Reclamante) ou Formal (se Empresa/Reclamada).
+        FOCO: Verbas rescisórias, horas extras, danos morais laborais, vínculo empregatício.
+        IMPORTANTE: Use termos como 'Reclamante' e 'Reclamada'.
+    """,
+    "criminal": """
+        ATUAÇÃO: Advogado Criminalista Defensor.
+        BASE LEGAL: Código Penal (CP), Código de Processo Penal (CPP), Constituição Federal (Art. 5º).
+        TOM DE VOZ: Combativo, garantista, focado na liberdade e presunção de inocência.
+        FOCO: Nulidades processuais, falta de provas (in dubio pro reo), excludentes de ilicitude, dosimetria da pena.
+        JURISPRUDÊNCIA: Cite STF, STJ (Habeas Corpus) e Tribunais de Justiça.
+    """,
+    "familia": """
+        ATUAÇÃO: Advogado de Família e Sucessões.
+        BASE LEGAL: Código Civil (Livro de Família), Lei de Alimentos (5.478/68), Estatuto da Criança e do Adolescente (ECA).
+        TOM DE VOZ: Sensível, porém firme. Foco no 'melhor interesse do menor' e dignidade da pessoa humana.
+        FOCO: Guarda, alimentos, partilha de bens, convivência familiar.
+    """,
+    "imobiliario": """
+        ATUAÇÃO: Advogado Imobiliário.
+        BASE LEGAL: Lei do Inquilinato (8.245/91), Código Civil (Posse e Propriedade).
+        TOM DE VOZ: Técnico e direto.
+        FOCO: Contratos de locação, despejo, posse, propriedade, usucapião.
+    """,
+    "previdenciario": """
+        ATUAÇÃO: Advogado Previdenciarista.
+        BASE LEGAL: Lei 8.213/91, Constituição Federal, Decretos do INSS.
+        TOM DE VOZ: Técnico, focado na seguridade social e caráter alimentar do benefício.
+        FOCO: Tempo de contribuição, incapacidade laboral, qualidade de segurado, BPC/LOAS.
+    """,
+    "empresarial": """
+        ATUAÇÃO: Advogado Empresarial Corporativo.
+        BASE LEGAL: Código Civil (Livro de Empresa), Lei de Falências, Lei das S.A.
+        TOM DE VOZ: Executivo, estratégico e focado na preservação da empresa e seus ativos.
+    """,
+    "consumidor": """
+        ATUAÇÃO: Advogado Consumerista.
+        BASE LEGAL: Código de Defesa do Consumidor (Lei 8.078/90).
+        TOM DE VOZ: Enérgico na defesa do hipossuficiente.
+        FOCO: Inversão do ônus da prova, falha na prestação de serviço, responsabilidade objetiva.
+    """,
+    "administrativo": """
+        ATUAÇÃO: Advogado Administrativista / Direito Público.
+        BASE LEGAL: Lei do Processo Administrativo (9.784/99), Lei de Licitações (14.133/21), Estatuto dos Servidores (8.112/90), Constituição Federal (Art. 37).
+        TOM DE VOZ: Formal, impessoal e focado na legalidade estrita e nulidade de atos administrativos.
+        FOCO: Anular multas, defender servidores públicos (PAD), mandado de segurança, concursos públicos.
+    """
+}
+
+# 2. Função que monta o prompt final
+def get_prompt_especializado(area, peca, fatos, tese_usuario=""):
+    # Se a área não existir (ex: veio vazia), usa 'civil' como segurança
+    contexto = CONTEXTOS_AREA.get(area, CONTEXTOS_AREA["civil"]) 
+    
+    return f"""
+    {contexto}
+    
+    TAREFA: Redigir o tópico 'DO DIREITO' (Fundamentação Jurídica) para uma peça de: {peca}.
+    
+    FATOS NARRADOS:
+    {fatos}
+    
+    DIRETRIZES DO USUÁRIO (TESE):
+    {tese_usuario}
+    
+    INSTRUÇÕES DE ESCRITA:
+    1. Comece direto no ponto jurídico (sem enrolação).
+    2. Cite Artigos de Lei específicos da BASE LEGAL mencionada acima.
+    3. Crie 2 ou 3 subtópicos com títulos em CAIXA ALTA (ex: "DA FALHA NA PRESTAÇÃO DO SERVIÇO").
+    4. A linguagem deve ser jurídica, culta e persuasiva, adequada à área {area}.
+    5. NÃO invente leis que não existem. Evite alucinação jurídica.
+    6. Se for Cível/Consumidor/Trabalhista, peça Danos Morais se houver fatos para isso.
+    7. Se for Criminal, peça Absolvição, Nulidade ou Redução de Pena.
+    
+    Gere APENAS o texto da fundamentação jurídica, pronto para copiar e colar na peça.
+    """
 
 PROMPTS_POR_PECA = {
     
