@@ -246,11 +246,31 @@ PROMPTS_POR_PECA = {
             "O prequestionamento da matéria para fins de recursos superiores."
         ]
     },
-    "Agravo de Instrumento": {
-        "contexto": "Advogado recorrendo de decisão interlocutória.",
-        "instrucao_fatos": "Resuma a decisão agravada que causou prejuízo.",
-        "instrucao_direito": "Demonstre o risco de dano grave e a probabilidade do direito (efeito suspensivo).",
-        "estrutura_pedidos": ["Concessão de efeito suspensivo/ativo;", "Reforma da decisão agravada."]
+   "Agravo de Instrumento": {
+        "contexto": """
+            Você é um especialista em recursos de tribunais superiores. 
+            Sua missão é redigir um AGRAVO DE INSTRUMENTO.
+            Foco: Atacar uma decisão interlocutória específica (decisão do juiz antes da sentença).
+        """,
+        "instrucao_fatos": """
+            A 'Síntese dos Fatos' deve:
+            1. Contextualizar o andamento do processo até aqui (Resumo do Processo).
+            2. Expor claramente o que o juiz decidiu na 'Decisão Agravada' (Resumo da Decisão).
+            3. Demonstrar por que essa decisão causa um prejuízo imediato e grave ao seu cliente (Agravante).
+        """,
+        "instrucao_direito": """
+            Nas Razões do Agravo:
+            1. DA TEMPESTIVIDADE E PREPARO: Mencione que o recurso é próprio e tempestivo.
+            2. DO EFEITO SUSPENSIVO/ATIVO: Argumente o 'periculum in mora' (perigo na demora) e a 'probabilidade do direito'. 
+            3. DO MÉRITO RECURSAL: Confronte a decisão judicial com a lei e a jurisprudência.
+            4. Se o usuário estiver representando o Agravante, o tom deve ser de urgência na reforma da decisão.
+        """,
+        "estrutura_pedidos": [
+            "A concessão do efeito suspensivo (ou tutela antecipada recursal);",
+            "A intimação da parte Agravada para apresentar contraminuta;",
+            "O provimento total do recurso para reformar a r. decisão agravada;",
+            "A juntada das peças obrigatórias (Art. 1.017, CPC)."
+        ]
     },
     
     "Embargos de Declaração": {
