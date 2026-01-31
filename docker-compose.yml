@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # 1. Banco de Dados Profissional (PostgreSQL)
+  # Substitui o legal_intelligence.db simples por um banco robusto
+  db:
+    image: postgres:15
+    container_name: tevox_db
+    restart: always
+    environment:
+      POSTGRES_USER: gustavo
+      POSTGRES_PASSWORD: sua_senha_forte_aqui
+      POSTGRES_DB: legal_intelligence
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data # Garante que os dados não sumam ao desligar
+
+  # 2. Backend (Antigo Render)
+  # Processa as peças e a inteligência das áreas
+  backend:
+    build: ./backend
+    container_name: tevox_backend
+    restart: always
+    env_file:
+      - .env # Carrega sua GROQ_API_KEY automaticamente
+    depends_on:
+      - db
+
+  # 3. Frontend (Antigo Vercel)
+  # Onde a Eduarda acessa o sistema
+  frontend:
+    build: ./frontend
+    container_name: tevox_frontend
+    restart: always
+    ports:
+      - "80:80" # Abre o site na porta padrão da internet
+    depends_on:
+      - backend
